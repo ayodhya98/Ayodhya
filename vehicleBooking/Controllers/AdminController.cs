@@ -118,5 +118,63 @@ namespace vehicleBooking.Controllers
             return NotFound();
         }
 
+        [HttpPost("passengers")]
+        public IActionResult CreatePassenger(Passenger passenger)
+        {
+            var result = _repository.CreatePassenger(passenger);
+
+            if (result)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
+
+        [HttpGet("passengers")]
+        public IActionResult GetPassengers()
+        {
+            var passengers = _repository.GetPassengers();
+            return Ok(passengers);
+        }
+
+        [HttpGet("passengers/{id}")]
+        public IActionResult GetPassengerById(long id)
+        {
+            var passenger = _repository.GetPassenger(id);
+
+            if (passenger == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(passenger);
+        }
+
+        [HttpPut("passengers/{id}")]
+        public IActionResult UpdatePassenger(long id, Passenger passenger)
+        {
+            var result = _repository.UpdatePassenger(passenger);
+
+            if (result)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
+        }
+
+        [HttpDelete("passengers/{id}")]
+        public IActionResult DeletePassenger(long id)
+        {
+            var result = _repository.DeletePassenger(id);
+
+            if (result)
+            {
+                return Ok();
+            }
+
+            return NotFound();
+        }
     }
 }

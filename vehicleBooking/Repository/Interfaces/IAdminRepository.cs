@@ -20,6 +20,6 @@ namespace vehicleBooking.Repository.Interfaces
         List<Vehicle> GetVehicles();
         Vehicle GetVehicle(long id);
         List<Vehicle> ViewAvailableVehicles(bool status);
-
+        bool CreatePassenger(Passenger passenger);
     }
 }

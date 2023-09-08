@@ -49,7 +49,16 @@ namespace vehicleBooking.Repository
 
         public bool DeletePassenger(long id)
         {
-            throw new NotImplementedException();
+            var passenger = _context.Passenger.FirstOrDefault(p => p.Id == id);
+
+            if (passenger != null)
+            {
+                _context.Passenger.Remove(passenger);
+                _context.SaveChanges();
+                return true;
+            }
+
+            return false;
         }
 
         public Booking getBookingById(long id)
@@ -64,12 +73,12 @@ namespace vehicleBooking.Repository
 
         public Passenger GetPassenger(long id)
         {
-            throw new NotImplementedException();
+            return _context.Passenger.FirstOrDefault(p => p.Id == id);
         }
 
         public List<Passenger> GetPassengers()
         {
-            throw new NotImplementedException();
+            return _context.Passenger.ToList();
         }
 
         public Vehicle GetVehicle(long id)
@@ -89,7 +98,23 @@ namespace vehicleBooking.Repository
 
         public bool UpdatePassenger(Passenger passenger)
         {
-            throw new NotImplementedException();
+            var existingPassenger = _context.Passenger.FirstOrDefault(p => p.Id == passenger.Id);
+
+            if (existingPassenger != null)
+            {
+               
+                existingPassenger.FirstName = passenger.FirstName;
+                existingPassenger.LastName = passenger.LastName;
+                existingPassenger.Email = passenger.Email;
+                existingPassenger.AvailabilityStatus = passenger.AvailabilityStatus;
+                existingPassenger.Gender = passenger.Gender;
+                existingPassenger.PhoneNumber = passenger.PhoneNumber;
+
+                _context.SaveChanges();
+                return true;
+            }
+
+            return false;
         }
 
         public List<Vehicle> ViewAvailableVehicles(bool status)
@@ -108,6 +133,11 @@ namespace vehicleBooking.Repository
                 return chauffeur;
             }
             return new Chauffeur();
+        }
+
+        public bool CreatePassenger(Passenger passenger)
+        {
+            throw new NotImplementedException();
         }
     }
 }
